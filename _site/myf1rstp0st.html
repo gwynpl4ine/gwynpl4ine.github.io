@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+    <title>Primera entrada</title>
+  
+    <!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v4.2.0">
+<meta property="og:title" content="Primera entrada">
+<meta name="author" content="gwynpl4ine">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="gwynpl4ine’s personal blog. nada serio">
+<meta property="og:description" content="gwynpl4ine’s personal blog. nada serio">
+<link rel="canonical" href="/myf1rstp0st.html">
+<meta property="og:url" content="/myf1rstp0st.html">
+<meta property="og:site_name" content="blog">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2021-02-04T11:58:59-05:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Primera entrada">
+<script type="application/ld+json">
+{"mainEntityOfPage":{"@type":"WebPage","@id":"/myf1rstp0st.html"},"@type":"BlogPosting","url":"/myf1rstp0st.html","headline":"Primera entrada","dateModified":"2021-02-04T11:58:59-05:00","datePublished":"2021-02-04T11:58:59-05:00","author":{"@type":"Person","name":"gwynpl4ine"},"description":"gwynpl4ine’s personal blog. nada serio","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/assets/css/main.css">
+  <script>MathJax={"tex":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"svg":{"fontCache":"global"},"svg":{"fontCache":"global"}}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body a="auto">
+    <main class="page-content" aria-label="Content">
+      <div class="w">
+        <h2>
+    <a href="/">[ ../ ]</a>
+</h2>
+  <p class="post-meta">
+    <time datetime="2021-02-04 11:58:59 -0500">04-02-2021</time>
+  </p>
+  
+  <h1>Primera entrada</h1>
+
+  <p>Esta será la primera entrada de este blog, espero que no sea la última.
+Con esto pretendo poner mis ideas en algún lugar no tan volátil para posteriormente poder desarrollarlas en algo más concreto. Además, será un intento por documentar mi camino de aprendizaje.</p>
+
+<p>Empiezo esto debido a un problema que resolví con un amigo ayer por la noche. Se trata de la pagina web personal de un hacker que le sirve de archivo para los documentos de su antiguo blog. Observar lo que encontramos allí nos hizo mucha ilusión y nos hizo reflexionar sobre el camino que estamos tomando como entusiastas de informática. Así, me resolví a escribir un blog de la misma forma que él hizo y pensé que sería una buena idea utilizar esta experiencia para hacer el contenido del primer post.</p>
+
+<p>Para empezar, no pudimos contenido de la página así como así. Así que les mostraré el procedimiento que seguímos para entrar.</p>
+
+<p>No mostraré la página ni revelaré el nombre de la persona a la que pertenece.</p>
+
+<p>Cuando entramos a la página, nos encontramos con esto:</p>
+
+<p><img src="/assets/img/firstpost/home.png" alt="figure1"></p>
+
+<p>Alguien que esté familiarizado con HTB o CTFs sabe que lo primero que debe hacer es buscar qué es lo que se encuentra del lado del cliente. Los hackers quieren atención, no te invitarían a romper algo de esa forma si no hubiera la posibilidad de hacerlo.</p>
+
+<p>Buscando en las fuentes de la página llegamos al siguiente código escrito en js</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">expmod</span> <span class="o">=</span> <span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">m</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">==</span> <span class="mi">1</span><span class="nx">n</span><span class="p">)</span> <span class="k">return</span> <span class="nx">a</span> <span class="o">%</span> <span class="nx">m</span><span class="p">;</span>
+  <span class="nx">res</span> <span class="o">=</span> <span class="nx">expmod</span><span class="p">((</span><span class="nx">a</span><span class="o">*</span><span class="nx">a</span><span class="p">)</span> <span class="o">%</span> <span class="nx">m</span><span class="p">,</span> <span class="nx">n</span><span class="o">/</span><span class="mi">2</span><span class="nx">n</span><span class="p">,</span> <span class="nx">m</span><span class="p">);</span>
+  <span class="k">return</span> <span class="p">(</span><span class="nx">n</span> <span class="o">%</span> <span class="mi">2</span><span class="nx">n</span><span class="p">)</span> <span class="p">?</span> <span class="p">(</span><span class="nx">res</span><span class="o">*</span><span class="nx">a</span><span class="p">)</span> <span class="o">%</span> <span class="nx">m</span> <span class="p">:</span> <span class="nx">res</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">password</span><span class="p">){</span>
+  <span class="nx">enc</span> <span class="o">=</span> <span class="mi">383758997142829475354633982978140249665899064849306762672729644831336253</span><span class="nx">n</span><span class="p">;</span>
+  <span class="nx">mod</span> <span class="o">=</span> <span class="mi">803427095080542426781920458218201792543115459306281475663006978487720437</span><span class="nx">n</span><span class="p">;</span>
+  <span class="nx">pub</span> <span class="o">=</span> <span class="mi">65537</span><span class="nx">n</span><span class="p">;</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">onkeypress</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">keyCode</span> <span class="o">==</span> <span class="mi">13</span><span class="p">)</span>
+      <span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">password</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">expmod</span><span class="p">(</span><span class="nx">password</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">x</span> <span class="o">=&gt;</span> <span class="nx">BigInt</span><span class="p">(</span><span class="nx">x</span><span class="p">)).</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">x</span><span class="p">,</span><span class="nx">y</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">x</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="nx">n</span><span class="p">)</span> <span class="o">+</span> <span class="nx">y</span><span class="p">),</span> <span class="nx">pub</span><span class="p">,</span> <span class="nx">mod</span><span class="p">)</span> <span class="o">==</span> <span class="nx">enc</span><span class="p">)</span>
+          <span class="nb">document</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">/</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">password</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">x</span> <span class="o">=&gt;</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="nx">x</span><span class="p">)).</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">x</span><span class="p">,</span><span class="nx">y</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span><span class="p">);</span>
+        <span class="k">else</span>
+          <span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">).</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">block</span><span class="dl">"</span><span class="p">;</span>
+            <span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">).</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">none</span><span class="dl">"</span><span class="p">;</span>
+            <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+          <span class="p">},</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="nx">password</span> <span class="o">=</span> <span class="p">[];</span>
+      <span class="p">},</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">keyCode</span> <span class="o">&gt;=</span> <span class="mi">97</span> <span class="o">&amp;&amp;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">keyCode</span> <span class="o">&lt;=</span> <span class="mi">122</span><span class="p">)</span> <span class="nx">password</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">keyCode</span><span class="p">);</span>
+  <span class="p">};</span>
+<span class="p">})([]);</span>
+
+</code></pre></div></div>
+
+<p>Vemos que lo que pasa es que la constraseña se encripta con <a href="https://es.wikipedia.org/wiki/RSA#Algoritmo_RSA">RSA</a> y los datos importantes que nos otorga son:</p>
+
+<ul>
+  <li>la llave pública $e$. En el código es <code class="language-plaintext highlighter-rouge">pub</code>
+</li>
+  <li>el producto de los primos $p$ y $q$. En el código <code class="language-plaintext highlighter-rouge">mod</code>.</li>
+  <li>el criptograma. En el código es <code class="language-plaintext highlighter-rouge">enc</code>
+</li>
+</ul>
+
+<p>Los números presentados son pequeños para la maquinaria de cómputo de estos tiempos. De manera que podemos buscar la forma de factorizar nuestro $n$ como $p\cdot q$. Esto puedes hacerlo tú o puedes buscar en <a href="http://factordb.com">factordb.com</a>. Fui por lo segundo y tendremos que</p>
+
+\[n = 834484082192663321522350796531179531\cdot 962783008358270223405333797438320127\]
+
+<p>donde ambos factores son primos. Así, podemos calcular rápidamente:</p>
+
+\[\begin{align*}
+\varphi(n) &amp;= (834484082192663321522350796531179531-1)(962783008358270223405333797438320127-1)\\
+\varphi(n) &amp;= 803427095080542426781920458218201790745848368755347930735322384518220780
+\end{align*}\]
+
+<p>Con nuestro $\varphi(n)$ ya podemos calcular la llave privada que sería</p>
+
+\[d = e^{-1} (\text{ mod }\varphi(n))\]
+
+<p>Es decir, solo tenemos que elevar $65537^{-1}$ módulo $\varphi(n)$. Esto puede hacerse rápidamente en sagemath:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌────────────────────────────────────────────────────────────────────┐
+│ SageMath version 8.1, Release Date: 2017-12-07                     │
+│ Type "notebook()" for the browser-based notebook interface.        │
+│ Type "help()" for help.                                            │
+└────────────────────────────────────────────────────────────────────┘
+sage: d = 65537**(-1) % 803427095080542426781920458218201790745848368755347930735322384518220780
+sage: d
+783628587999731953015150518489157191633064061943319810617868951327856153
+sage: 
+</code></pre></div></div>
+
+<p>Ahora tenemos nuestra llave para desencriptar! Solo tenemos que elevar a nuestro criptograma <code class="language-plaintext highlighter-rouge">enc</code> a nuestro $d$ modulo $n$. Pero, dado lo grande que es el número, debemos usar un algoritmo de exponenciación rápida. Observe que la función <code class="language-plaintext highlighter-rouge">expmod</code> es exactamente lo que necesitamos, así que la usamos en la consola del navegador</p>
+
+<p><img src="/assets/img/firstpost/logexpo.png" alt="figure2"></p>
+
+<p>Y así tenemos que nuestro mensaje secreto es</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>raw = 620022046902789193430391232136373345
+</code></pre></div></div>
+
+<p>Sin embargo, el trabajo no termina aquí: observe en el código cómo es que se encripta la <code class="language-plaintext highlighter-rouge">password</code>.</p>
+
+<p>Para empezar, de las últimas líneas notamos que la constraseña solo admite caracteres alfabéticos, en particular, minúsculas; del $97$ al $122$ en ASCII que corresponden a ‘a’ y ‘z’ respectivamente. Además, la constraseña se encripta letra por letra en</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">expmod</span><span class="p">(</span><span class="nx">password</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">x</span> <span class="o">=&gt;</span> <span class="nx">BigInt</span><span class="p">(</span><span class="nx">x</span><span class="p">)).</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">x</span><span class="p">,</span><span class="nx">y</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">x</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="nx">n</span><span class="p">)</span> <span class="o">+</span> <span class="nx">y</span><span class="p">),</span> <span class="nx">pub</span><span class="p">,</span> <span class="nx">mod</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Esto quiere decir que, sea $\text{password} = p_1p_2p_3…p_t$, donde $p_i$ es una letra minúscula, tendremos que nuestro criptograma será un número que tendrá la forma</p>
+
+\[\begin{align*}
+&amp;((...((p_i\cdot 2^3+p_2)\cdot 2^3 + p_3)\cdot 2^3...)\cdot2^3+p_t) \\
+\Rightarrow \hspace{0.5cm} &amp;p_1\cdot 2^{3t} + p_2\cdot 2^{3(t-1)} + p_3\cdot 2^{3(t-2)} ... + p_{t-1}\cdot2^3 + p_t
+\end{align*}\]
+
+<p>Razonemos que este es el valor <strong>en base 10</strong> de nuestro mensaje. Para poder encontrar la contraseña todo lo que tenemos que hacer es aplicar divisiones sucesivas para encontrar el valor de <code class="language-plaintext highlighter-rouge">raw</code> en la base $2^3$. Esto es sencillo de hacer con <code class="language-plaintext highlighter-rouge">python3</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">t</span> <span class="o">=</span> <span class="mi">620022046902789193430391232136373345</span>
+
+<span class="k">while</span> <span class="n">t</span> <span class="o">&gt;=</span> <span class="mi">256</span> <span class="p">:</span>
+     <span class="n">aux</span> <span class="o">=</span> <span class="n">t</span> <span class="o">//</span> <span class="mi">256</span>
+     <span class="n">pasw</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">aux</span><span class="o">*</span><span class="mi">256</span><span class="p">)</span>
+     <span class="n">t</span> <span class="o">=</span> <span class="n">aux</span>
+
+<span class="n">pasw</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">''</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="nb">reversed</span><span class="p">([</span><span class="nb">chr</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">pasw</span><span class="p">])))</span>
+</code></pre></div></div>
+<p>Y así, conseguiremos nuestra contraseña: <code class="language-plaintext highlighter-rouge">*i*s*n*wi*d*r*a</code>. La he censurado a propósito.</p>
+
+<p>Una vez hecho esto, ingresamos a la página y esta nos redirigirá hacia el contenido del blog.</p>
+
+<p>Estoy pensando seriamente en ‘proteger’ esta primera entrada con el mismo método que uso esta persona. Como sea, veré si puedo hacerlo… y si tengo ganas. De momento, es todo por hoy.</p>
+
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper"> 
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list">
+<li>
+    <a href="https://github.com/gwynpl4ine">
+      <svg class="svg-icon">
+        <use xlink:href="/assets/img/minima-social-icons.svg#github"></use>
+      </svg>
+      <span class="username">gwynpl4ine</span>
+    </a>
+  </li>
+<li>
+    <a href="https://www.twitter.com/gwynplaine_">
+      <svg class="svg-icon">
+        <use xlink:href="/assets/img/minima-social-icons.svg#twitter"></use>
+      </svg> <span class="username">gwynplaine_</span>
+    </a>
+  </li>
+</ul></div>
+
+      <div class="footer-col footer-col-3">
+        <p>gwynpl4ine's personal blog. nada serio</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+</html>
