@@ -9,15 +9,15 @@ Con esto pretendo poner mis ideas en algún lugar no tan volátil para posterior
 
 Empiezo esto debido a un problema que resolví con un amigo ayer por la noche. Se trata de la pagina web personal de un hacker que le sirve de archivo para los documentos de su antiguo blog. Observar lo que encontramos allí nos hizo mucha ilusión y nos hizo reflexionar sobre el camino que estamos tomando como entusiastas de informática. Así, me resolví a escribir un blog de la misma forma que él hizo y pensé que sería una buena idea utilizar esta experiencia para hacer el contenido del primer post.
 
-Para empezar, no pudimos contenido de la página así como así. Así que les mostraré el procedimiento que seguímos para entrar.
+Para empezar, no pudimos contenido ver de la página así como así. Así que les mostraré el procedimiento que seguímos para entrar.
 
-No mostraré la página ni revelaré el nombre de la persona a la que pertenece.
+No mostraré la dirección de la página ni revelaré el nombre de la persona a la que pertenece. Tampoco revelaré lo que encontramos ahí.
 
 Cuando entramos a la página, nos encontramos con esto:
 
 ![figure1](/assets/img/firstpost/home.png)
 
-Alguien que esté familiarizado con HTB o CTFs sabe que lo primero que debe hacer es buscar qué es lo que se encuentra del lado del cliente. Los hackers quieren atención, no te invitarían a romper algo de esa forma si no hubiera la posibilidad de hacerlo.
+Alguien que esté familiarizado con como funciona una página web sabe que lo primero que debe hacer es buscar qué es lo que se encuentra del lado del cliente. Los hackers quieren atención, no te invitarían a romper algo de esa forma si no hubiera la posibilidad de hacerlo.
 
 Buscando en las fuentes de la página llegamos al siguiente código escrito en js
 
@@ -105,22 +105,22 @@ raw = 620022046902789193430391232136373345
 
 Sin embargo, el trabajo no termina aquí: observe en el código cómo es que se encripta la `password`.
 
-Para empezar, de las últimas líneas notamos que la constraseña solo admite caracteres alfabéticos, en particular, minúsculas; del $97$ al $122$ en ASCII que corresponden a 'a' y 'z' respectivamente. Además, la constraseña se encripta letra por letra en
+Para empezar, de las últimas líneas notamos que la constraseña solo admite caracteres alfabéticos, en particular, minúsculas; del $97$ al $122$ en ASCII que corresponden a 'a' y 'z' respectivamente. Ergo, podemos ver nuestra contraseña no como una cadena de caracteres sino como un número representado en base $2^8=256$. Además, la constraseña se encripta ~~letra por letra~~ dígito por dígito en
 
 ```javascript
 expmod(password.map(x => BigInt(x)).reduce((x,y) => (x << 8n) + y), pub, mod)
 ```
 
-Esto quiere decir que, sea $\text{password} = p_1p_2p_3...p_t$, donde $p_i$ es una letra minúscula, tendremos que nuestro criptograma será un número que tendrá la forma
+Esto quiere decir que, sea $\text{password} = \overline{p_1p_2p_3...p_t}$, donde $p_i$ es el valor ASCII una letra minúscula, tendremos que nuestro criptograma será un número que tendrá la forma
 
 $$
 \begin{align*}
-&((...((p_i\cdot 2^3+p_2)\cdot 2^3 + p_3)\cdot 2^3...)\cdot2^3+p_t) \\
-\Rightarrow \hspace{0.5cm} &p_1\cdot 2^{3t} + p_2\cdot 2^{3(t-1)} + p_3\cdot 2^{3(t-2)} ... + p_{t-1}\cdot2^3 + p_t
+&((...((p_i\cdot 2^8+p_2)\cdot 2^8 + p_3)\cdot 2^8+...)\cdot2^8+p_t) \\
+\Rightarrow \hspace{0.5cm} &p_1\cdot 2^{8t} + p_2\cdot 2^{8(t-1)} + p_3\cdot 2^{8(t-2)} +... + p_{t-1}\cdot2^8 + p_t
 \end{align*}
 $$
 
-Razonemos que este es el valor **en base 10** de nuestro mensaje. Para poder encontrar la contraseña todo lo que tenemos que hacer es aplicar divisiones sucesivas para encontrar el valor de `raw` en la base $2^3$. Esto es sencillo de hacer con `python3`.
+Razonemos que esta es la desconposición polinómica de nuestro $\text{password}$ y, por lo tanto, es el valor **en base 10** de nuestro mensaje. Para poder encontrar la contraseña todo lo que tenemos que hacer es aplicar divisiones sucesivas para encontrar el valor de `raw` en la base $2^8$. Esto es sencillo de hacer con `python3`.
 
 ```python
 t = 620022046902789193430391232136373345

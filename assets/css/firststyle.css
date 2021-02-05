@@ -21,11 +21,28 @@ body {
 	100% { opacity: 1; }
 }
 
+input {
+	background-color: #030303;
+	border: #030303;
+	border: 0px;
+	color: #ccc;
+	font-family: 'Source Code Pro', monospace; font-size: 1em;
+	width: 1px;
+	min-width: 1px;
+	text-align: left;
+	caret-color: transparent;
+}
+input:focus, select:focus, text:focus {
+    outline: none;
+    border:0px solid #030303;
+    box-shadow: 0 0 10px #030303;
+}
+
 #error {
 	font-size: 40pt;
 	padding: 10px;
 	color: red;
-	font-family: 'Press Start 2P', 'impact', cursive;
+	font-family: 'Source Code Pro', 'impact', bold;
 	text-align: center;
 	position: fixed;
 	margin-top: 100px;
