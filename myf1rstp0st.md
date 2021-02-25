@@ -3,6 +3,7 @@ layout: post
 title:  Primera entrada
 date:   2021-02-04 11:58:59 -0500
 categories: jekyll update
+author: gwynpl4ine
 ---
 Esta será la primera entrada de este blog, espero que no sea la última.
 Con esto pretendo poner mis ideas en algún lugar no tan volátil para posteriormente poder desarrollarlas en algo más concreto. Además, será un intento por documentar mi camino de aprendizaje.

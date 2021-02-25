@@ -1,6 +1,10 @@
 $apple-blossom: #ac4142;
 $alto: #d0d0d0;
 $bouquet: #aa759f;
+$brand-color: #999999 !default;
+$border-color-01: darken($brand-color, 35%) !default;
+$border-color-02: lighten($brand-color, 5%) !default;
+$border-color-03: $brand-color !default;
 $chelsea-cucumber: #90a959;
 $cod-grey: #151515;
 $conifer: #b5e853;

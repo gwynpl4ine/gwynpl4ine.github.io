@@ -5,7 +5,6 @@
       <svg class="svg-icon">
         <use xlink:href="{{ '/assets/img/minima-social-icons.svg#github' | relative_url }}"></use>
       </svg>
-      <span class="username">{{ site.github_username| escape }}</span>
     </a>
   </li>
   {%- endif -%}
@@ -15,7 +14,6 @@
       <svg class="svg-icon">
         <use xlink:href="{{ '/assets/img/minima-social-icons.svg#linkedin' | relative_url }}"></use>
       </svg> 
-      <span class="username">{{ site.linkedin_username| escape }}</span>
     </a>
   </li>
   {%- endif -%}
@@ -24,7 +22,7 @@
     <a href="https://www.twitter.com/{{ site.twitter_username| cgi_escape | escape }}">
       <svg class="svg-icon">
         <use xlink:href="{{ '/assets/img/minima-social-icons.svg#twitter' | relative_url }}"></use>
-      </svg> <span class="username">{{ site.twitter_username| escape }}</span>
+      </svg> 
     </a>
   </li>
   {%- endif -%}
@@ -33,16 +31,15 @@
     <a href="https://youtube.com/{{ site.youtube_username| cgi_escape | escape }}">
       <svg class="svg-icon">
         <use xlink:href="{{ '/assets/img/minima-social-icons.svg#youtube' | relative_url }}"></use>
-      </svg> 
-      <span class="username">{{ site.youtube_username| escape }}</span>
+      </svg>
     </a>
   </li>
   {%- endif -%}
   {%- if site.rss -%}
   <li>
     <a href="{{ 'feed.xml' | relative_url }}"><svg class="svg-icon">
-      <use xlink:href="{{ '/assets/img/minima-social-icons.svg#rss' | relative_url }}">
-      </use></svg> <span>{{ site.rss | escape }}</span>
+      <use xlink:href="{{ '/assets/img/minima-social-icons.svg#rss' | relative_url }}"></use>
+    </svg>
     </a>
   </li>
   {%- endif -%}

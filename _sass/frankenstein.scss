@@ -31,7 +31,6 @@ li { margin: 0.4rem 0; }
 *:target { background: yellow; }
 
 .w {
-  width: fit-content;
   max-width: 940px;
   margin: 0 auto;
   padding: 4rem 1rem;
@@ -97,48 +96,23 @@ body a:hover {
     font-weight: bold;
 }
 
-/**
- * Site footer
+/*
+* footer from minima
 **/
-$content-width:    940px !default;
+$content-width:    800px !default;
 $on-palm:          600px !default;
 $on-laptop:        800px !default;
-
-
-@mixin relative-font-size($ratio) {
-  font-size: $base-font-size * $ratio;
-}
-$base-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
-$base-font-size:   16px !default;
-$base-font-weight: 400 !default;
-$small-font-size:  $base-font-size * 0.875 !default;
-$base-line-height: 1.5 !default;
+$on-medium:        $on-palm !default;
+$on-large:         $on-laptop !default;
 $spacing-unit:     30px !default;
-
-@mixin media-query($device) {
-  @media screen and (max-width: $device) {
-    @content;
-  }
-}
-
-
-.wrapper {
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: $spacing-unit;
-  padding-left: $spacing-unit;
-
-  @include media-query($on-laptop) {
-    max-width: -webkit-calc(#{$content-width} - (#{$spacing-unit}));
-    max-width:         calc(#{$content-width} - (#{$spacing-unit}));
-    padding-right: $spacing-unit / 5;
-    padding-left: $spacing-unit / 5;
-  }
+$on-large:         $on-laptop !default;
+@mixin relative-font-size($ratio) {
+  font-size: #{$ratio}rem;
 }
 
 
 .site-footer {
-  border-top: 1px solid #7a7a7a;
+  border-top: 1px solid $border-color-01;
   padding: $spacing-unit 0;
 }
 
@@ -153,49 +127,111 @@ $spacing-unit:     30px !default;
   margin-left: 0;
 }
 
-.footer-col-wrapper {
-  @include relative-font-size(0.9375);
-  color: $grey-color;
-  margin-left: -$spacing-unit / 3;
+.footer-col-wrapper, .social-links {
+  font-optical-sizing: 0.9rem;
+  color: $brand-color;
 }
 
 .footer-col {
-  float: left;
-  margin-bottom: $spacing-unit / 3;
-  padding-left: $spacing-unit / 3;
+  margin-bottom: $spacing-unit / 2;
 }
 
-.footer-col-1 {
-  width: -webkit-calc(35% - (#{$spacing-unit} / 3));
-  width:         calc(35% - (#{$spacing-unit} / 3));
-}
-
+.footer-col-1,
 .footer-col-2 {
-  width: -webkit-calc(20% - (#{$spacing-unit} / 3));
-  width:         calc(20% - (#{$spacing-unit} / 3));
+  width: calc(50% - (#{$spacing-unit} / 2));
 }
 
 .footer-col-3 {
-  width: -webkit-calc(45% - (#{$spacing-unit} / 3));
-  width:         calc(45% - (#{$spacing-unit} / 3));
+  width: calc(100% - (#{$spacing-unit} / 2));
+}
+
+@media screen and (min-width: $on-large) {
+  .footer-col-1 {
+    width: calc(35% - (#{$spacing-unit} / 2));
+  }
+
+  .footer-col-2 {
+    width: calc(20% - (#{$spacing-unit} / 2));
+  }
+
+  .footer-col-3 {
+    width: calc(45% - (#{$spacing-unit} / 2));
+  }
+}
+
+@media screen and (min-width: $on-medium) {
+  .footer-col-wrapper {
+    display: flex
+  }
+
+  .footer-col {
+    width: calc(100% - (#{$spacing-unit} / 2));
+    padding: 0 ($spacing-unit / 2);
+
+    &:first-child {
+      padding-right: $spacing-unit / 2;
+      padding-left: 0;
+    }
+
+    &:last-child {
+      padding-right: 0;
+      padding-left: $spacing-unit / 2;
+    }
+  }
+}
+
+
+/**
+ * Pagination navbar
+ **/
+ .pagination {
+  margin-bottom: $spacing-unit;
+  @extend .social-media-list;
+  li {
+    a, div {
+      min-width: 41px;
+      text-align: center;
+      box-sizing: border-box;
+    }
+    div {
+      display: block;
+      padding: $spacing-unit / 4;
+      border: 1px solid transparent;
+
+      &.pager-edge {
+        color: $border-color-01;
+        border: 1px dashed;
+      }
+    }
+  }
 }
 
 
 /**
  * Icons
- */
+**/
 
- .svg-icon {
+.svg-icon {
   width: 16px;
   height: 16px;
   display: inline-block;
-  fill: #{$grey-color};
-  padding-right: 5px;
-  vertical-align: text-top;
+  fill: currentColor;
+  padding: 5px 3px 2px 0px;
+  vertical-align: text-bottom;
 }
 
 .social-media-list {
-li + li {
-  padding-top: 5px;
-}
+  display: table;
+  margin: 0 auto;
+  li {
+    float: left;
+    margin: 5px 10px 5px 0;
+    &:last-of-type { margin-right: 0 }
+    a {
+      display: block;
+      padding: $spacing-unit / 4;
+      border: 1px solid $border-color-01;
+      &:hover { border-color: $border-color-02 }
+    }
+  }
 }
