@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+	background-color: #030303;
+	color: #ccc;
+	font-family: 'Source Code Pro', monospace; font-size: 1.5em;
+}
+
+.cursor {
+	animation-duration: 1.2s;
+	animation-iteration-count: infinite;
+	animation-name: blink;
+}
+
+@keyframes blink {
+	0% { opacity: 1; }
+	30% { opacity: 1; }
+	50% { opacity: 0; }
+	80% { opacity: 0; }
+	100% { opacity: 1; }
+}
+
+input {
+	background-color: #030303;
+	border: #030303;
+	border: 0px;
+	color: #ccc;
+	font-family: 'Source Code Pro', monospace; font-size: 1em;
+	width: 1px;
+	min-width: 1px;
+	text-align: left;
+	caret-color: transparent;
+}
+input:focus, select:focus, text:focus {
+    outline: none;
+    border:0px solid #030303;
+    box-shadow: 0 0 10px #030303;
+}
+
+#error {
+	font-size: 40pt;
+	padding: 10px;
+	color: red;
+	font-family: 'Source Code Pro', 'impact', bold;
+	text-align: center;
+	position: fixed;
+	margin-top: 100px;
+	margin-left: 200px;
+	width: 400px;
+	border-color: red;
+	border-style: solid;
+	border-width: 10px;
+	background-color: #030303;
+}

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>secret</title>
+    <link rel="stylesheet" href="/assets/css/firststyle.css">
+    <script src="/assets/js/firstscript.js"></script>
+    <script>
+      fux = function() {
+        document.getElementById("pass").focus();
+      }
+    </script>
+  </head>
+  <body onmousemove="fux()">
+    <div id="error" style="display: none;">ACCESS DENIED</div>
+    <p>This entry is 'protected'.</p>
+    <pre>password: <input type="password" onkeypress="gogo(event)" id="pass" onload="fux()"><span class="cursor">█</span></pre>
+  </body>
+</html>
